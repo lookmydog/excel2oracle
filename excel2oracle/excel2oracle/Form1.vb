@@ -1,3 +1,5 @@
-﻿Public Class Form1
+﻿Imports Microsoft.Office.Interop.Excel
+
+Public Class Form1
 
 End Class
