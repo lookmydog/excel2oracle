@@ -1,0 +1,10 @@
+C:\Users\eCATCH\excel2oracle\excel2oracle\excel2oracle\obj\x86\Debug\excel2oracle.vbproj.ResolveComReference.cache
+C:\Users\eCATCH\excel2oracle\excel2oracle\excel2oracle\bin\Debug\excel2oracle.exe
+C:\Users\eCATCH\excel2oracle\excel2oracle\excel2oracle\bin\Debug\excel2oracle.pdb
+C:\Users\eCATCH\excel2oracle\excel2oracle\excel2oracle\bin\Debug\excel2oracle.xml
+C:\Users\eCATCH\excel2oracle\excel2oracle\excel2oracle\obj\x86\Debug\excel2oracle.Form1.resources
+C:\Users\eCATCH\excel2oracle\excel2oracle\excel2oracle\obj\x86\Debug\excel2oracle.Resources.resources
+C:\Users\eCATCH\excel2oracle\excel2oracle\excel2oracle\obj\x86\Debug\excel2oracle.vbproj.GenerateResource.Cache
+C:\Users\eCATCH\excel2oracle\excel2oracle\excel2oracle\obj\x86\Debug\excel2oracle.exe
+C:\Users\eCATCH\excel2oracle\excel2oracle\excel2oracle\obj\x86\Debug\excel2oracle.xml
+C:\Users\eCATCH\excel2oracle\excel2oracle\excel2oracle\obj\x86\Debug\excel2oracle.pdb
