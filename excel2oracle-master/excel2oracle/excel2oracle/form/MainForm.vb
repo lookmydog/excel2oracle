@@ -90,8 +90,10 @@ Public Class MainForm
           Continue For
         End If
 
+        '取sheet 的 row
         Dim tRow As IRow = wbSheet.GetRow(i)
 
+        '判別cell 是什麼格式
         For Each tCell As ICell In tRow.Cells
           If tCell.CellType = CellType.Formula Then
 
@@ -117,7 +119,7 @@ Public Class MainForm
           End If
 
         Next
-
+        'datatable 新增 row
         dtSheetData.Rows.Add(tmpAddRow)
       Next
     Catch ex As Exception
