@@ -33,3 +33,4 @@ D:\Repo\excel2oracle\excel2oracle\excel2oracle\obj\x86\Debug\excel2oracle.vbproj
 D:\Repo\excel2oracle\excel2oracle\excel2oracle\obj\x86\Debug\excel2oracle.exe
 D:\Repo\excel2oracle\excel2oracle\excel2oracle\obj\x86\Debug\excel2oracle.xml
 D:\Repo\excel2oracle\excel2oracle\excel2oracle\obj\x86\Debug\excel2oracle.pdb
+C:\Users\eCATCH\excel2oracle\excel2oracle\excel2oracle\obj\x86\Debug\excel2oracle.frmShowFilePath.resources

@@ -103,6 +103,12 @@
     <Import Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="form\frmShowFilePath.Designer.vb">
+      <DependentUpon>frmShowFilePath.vb</DependentUpon>
+    </Compile>
+    <Compile Include="form\frmShowFilePath.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="form\MainForm.vb">
       <SubType>Form</SubType>
     </Compile>
@@ -110,6 +116,7 @@
       <DependentUpon>MainForm.vb</DependentUpon>
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="module\Mod_ElseFunction.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
       <AutoGen>True</AutoGen>
@@ -127,6 +134,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="form\frmShowFilePath.resx">
+      <DependentUpon>frmShowFilePath.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="form\MainForm.resx">
       <DependentUpon>MainForm.vb</DependentUpon>
     </EmbeddedResource>
@@ -201,7 +211,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="class\" />
-    <Folder Include="module\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

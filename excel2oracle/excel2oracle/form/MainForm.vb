@@ -13,25 +13,6 @@ Public Class MainForm
   Private dsExcel As DataSet
   '------------end class variable -------------
 
-  Private Sub btnOpenFile_Click(sender As System.Object, e As System.EventArgs) Handles btnOpenFile.Click
-    '選取檔案
-    If OpenFileDialog1.ShowDialog = Windows.Forms.DialogResult.OK Then
-      strExcelName = OpenFileDialog1.FileName.Trim
-      '將檔名列在 textbox 上
-      txtPath.Text = OpenFileDialog1.InitialDirectory & strExcelName
-      '建立新的 dataset
-      dsExcel = New DataSet
-      '清空listbox 上的 item
-      ListBox1.Items.Clear()
-      '讀取 excel
-      LoadExcelData(strExcelName, OpenFileDialog1.FilterIndex)
-      DataGridView1.DataSource = Nothing
-    Else
-      MsgBox("Open FileDialog Error.", MsgBoxStyle.Critical)
-      Return
-    End If
-  End Sub
-
   Private Sub LoadExcelData(ByVal FileName As String, ByVal FileType As Integer)
     Try
       Dim fsFile As FileStream = New FileStream(FileName, FileMode.Open, FileAccess.Read)
@@ -101,6 +82,7 @@ Public Class MainForm
             Dim obj As Object
 
             Try
+              'interface evaluate formula in cell
               iFormula = WorkbookFactory.CreateFormulaEvaluator(wbXLS)
               obj = iFormula.Evaluate(tCell).CellType
 
@@ -110,11 +92,12 @@ Public Class MainForm
                 tmpAddRow(Convert10to26(tCell.ColumnIndex + 1)) = tCell.ToString
               End If
             Catch
+              'the special formula : "W" & formula => string value
               tmpAddRow(Convert10to26(tCell.ColumnIndex + 1)) = tCell.StringCellValue
             End Try
 
           Else
-
+            '不是公式直接輸出字串
             tmpAddRow(Convert10to26(tCell.ColumnIndex + 1)) = tCell.ToString
           End If
 
@@ -126,24 +109,6 @@ Public Class MainForm
       MsgBox(ex.ToString, MsgBoxStyle.Critical)
     End Try
     Return dtSheetData
-  End Function
-
-  Private Function Convert10to26(ByVal originalNum As Integer) As String
-    If originalNum <= 0 Then Return ""
-    Dim count As Integer = 0
-    Dim strReturn As String = ""
-
-    While originalNum > 0
-      count = originalNum Mod 26
-      If count = 0 Then
-        count = 26
-        originalNum = originalNum - 1
-      End If
-      strReturn = Convert.ToChar(64 + count) & strReturn
-      originalNum = originalNum / 26
-
-    End While
-    Return strReturn
   End Function
 
   Private Sub MainForm_Load(sender As Object, e As System.EventArgs) Handles Me.Load
@@ -162,9 +127,37 @@ Public Class MainForm
   End Sub
 
   '結束程式
-  Private Sub btnEnd_Click(sender As System.Object, e As System.EventArgs) Handles btnEnd.Click
-    dsExcel = Nothing
+  Private Sub menuItemEndProgram_Click(sender As System.Object, e As System.EventArgs) Handles menuItemEndProgram.Click
     End
+  End Sub
+
+  Private Sub menuItemOpenFile_Click(sender As System.Object, e As System.EventArgs) Handles menuItemOpenFile.Click
+    '選取檔案
+    If OpenFileDialog1.ShowDialog = Windows.Forms.DialogResult.OK Then
+      strExcelName = OpenFileDialog1.FileName.Trim
+      '將檔名列在 status 上
+      statusLblFilePath.Text = OpenFileDialog1.InitialDirectory & strExcelName
+      '建立新的 dataset
+      dsExcel = New DataSet
+      '清空listbox 上的 item
+      ListBox1.Items.Clear()
+      '讀取 excel
+      LoadExcelData(strExcelName, OpenFileDialog1.FilterIndex)
+      DataGridView1.DataSource = Nothing
+    Else
+      MsgBox("Open FileDialog Error.", MsgBoxStyle.Critical)
+      Return
+    End If
+  End Sub
+
+  Private Sub menuItemShowFilePath_Click(sender As System.Object, e As System.EventArgs) Handles menuItemShowFilePath.Click
+    Dim frmShowPath As New frmShowFilePath(OpenFileDialog1.InitialDirectory & strExcelName)
+    frmShowPath.Show()
+  End Sub
+
+  'release source
+  Protected Overrides Sub Finalize()
+    dsExcel = Nothing
   End Sub
 
 End Class
