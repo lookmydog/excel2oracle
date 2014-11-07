@@ -22,20 +22,33 @@ Partial Class MainForm
   '請不要使用程式碼編輯器進行修改。
   <System.Diagnostics.DebuggerStepThrough()> _
   Private Sub InitializeComponent()
+    Me.components = New System.ComponentModel.Container()
     Me.DataGridView1 = New System.Windows.Forms.DataGridView()
     Me.OpenFileDialog1 = New System.Windows.Forms.OpenFileDialog()
     Me.ListBox1 = New System.Windows.Forms.ListBox()
     Me.MenuStrip1 = New System.Windows.Forms.MenuStrip()
     Me.檔案ToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
     Me.menuItemOpenFile = New System.Windows.Forms.ToolStripMenuItem()
+    Me.menuItemShowFilePath = New System.Windows.Forms.ToolStripMenuItem()
     Me.ToolStripSeparator1 = New System.Windows.Forms.ToolStripSeparator()
     Me.menuItemEndProgram = New System.Windows.Forms.ToolStripMenuItem()
     Me.StatusStrip1 = New System.Windows.Forms.StatusStrip()
     Me.statusLblFilePath = New System.Windows.Forms.ToolStripStatusLabel()
-    Me.menuItemShowFilePath = New System.Windows.Forms.ToolStripMenuItem()
+    Me.rightClickMenuDV_All = New System.Windows.Forms.ContextMenuStrip(Me.components)
+    Me.ToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
+    Me.rigthClickMenuDV_Row = New System.Windows.Forms.ContextMenuStrip(Me.components)
+    Me.TestRowToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+    Me.rightClickMenuDV_Col = New System.Windows.Forms.ContextMenuStrip(Me.components)
+    Me.rightClickMenuDV_Cell = New System.Windows.Forms.ContextMenuStrip(Me.components)
+    Me.TestColToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+    Me.TestCellToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
     CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).BeginInit()
     Me.MenuStrip1.SuspendLayout()
     Me.StatusStrip1.SuspendLayout()
+    Me.rightClickMenuDV_All.SuspendLayout()
+    Me.rigthClickMenuDV_Row.SuspendLayout()
+    Me.rightClickMenuDV_Col.SuspendLayout()
+    Me.rightClickMenuDV_Cell.SuspendLayout()
     Me.SuspendLayout()
     '
     'DataGridView1
@@ -84,18 +97,24 @@ Partial Class MainForm
     'menuItemOpenFile
     '
     Me.menuItemOpenFile.Name = "menuItemOpenFile"
-    Me.menuItemOpenFile.Size = New System.Drawing.Size(152, 22)
+    Me.menuItemOpenFile.Size = New System.Drawing.Size(148, 22)
     Me.menuItemOpenFile.Text = "開啟檔案"
+    '
+    'menuItemShowFilePath
+    '
+    Me.menuItemShowFilePath.Name = "menuItemShowFilePath"
+    Me.menuItemShowFilePath.Size = New System.Drawing.Size(148, 22)
+    Me.menuItemShowFilePath.Text = "顯示檔案路徑"
     '
     'ToolStripSeparator1
     '
     Me.ToolStripSeparator1.Name = "ToolStripSeparator1"
-    Me.ToolStripSeparator1.Size = New System.Drawing.Size(149, 6)
+    Me.ToolStripSeparator1.Size = New System.Drawing.Size(145, 6)
     '
     'menuItemEndProgram
     '
     Me.menuItemEndProgram.Name = "menuItemEndProgram"
-    Me.menuItemEndProgram.Size = New System.Drawing.Size(152, 22)
+    Me.menuItemEndProgram.Size = New System.Drawing.Size(148, 22)
     Me.menuItemEndProgram.Text = "結束程式"
     '
     'StatusStrip1
@@ -112,11 +131,53 @@ Partial Class MainForm
     Me.statusLblFilePath.Name = "statusLblFilePath"
     Me.statusLblFilePath.Size = New System.Drawing.Size(0, 17)
     '
-    'menuItemShowFilePath
+    'rightClickMenuDV_All
     '
-    Me.menuItemShowFilePath.Name = "menuItemShowFilePath"
-    Me.menuItemShowFilePath.Size = New System.Drawing.Size(152, 22)
-    Me.menuItemShowFilePath.Text = "顯示檔案路徑"
+    Me.rightClickMenuDV_All.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripMenuItem1})
+    Me.rightClickMenuDV_All.Name = "rightClickMenuDV_All"
+    Me.rightClickMenuDV_All.Size = New System.Drawing.Size(119, 26)
+    '
+    'ToolStripMenuItem1
+    '
+    Me.ToolStripMenuItem1.Name = "ToolStripMenuItem1"
+    Me.ToolStripMenuItem1.Size = New System.Drawing.Size(118, 22)
+    Me.ToolStripMenuItem1.Text = "Test_All"
+    '
+    'rigthClickMenuDV_Row
+    '
+    Me.rigthClickMenuDV_Row.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.TestRowToolStripMenuItem})
+    Me.rigthClickMenuDV_Row.Name = "rigthClickMenuDV_Row"
+    Me.rigthClickMenuDV_Row.Size = New System.Drawing.Size(130, 26)
+    '
+    'TestRowToolStripMenuItem
+    '
+    Me.TestRowToolStripMenuItem.Name = "TestRowToolStripMenuItem"
+    Me.TestRowToolStripMenuItem.Size = New System.Drawing.Size(129, 22)
+    Me.TestRowToolStripMenuItem.Text = "Test_Row"
+    '
+    'rightClickMenuDV_Col
+    '
+    Me.rightClickMenuDV_Col.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.TestColToolStripMenuItem})
+    Me.rightClickMenuDV_Col.Name = "rightClickMenuDV_Col"
+    Me.rightClickMenuDV_Col.Size = New System.Drawing.Size(124, 26)
+    '
+    'rightClickMenuDV_Cell
+    '
+    Me.rightClickMenuDV_Cell.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.TestCellToolStripMenuItem})
+    Me.rightClickMenuDV_Cell.Name = "rightClickMenuDV_Cell"
+    Me.rightClickMenuDV_Cell.Size = New System.Drawing.Size(126, 26)
+    '
+    'TestColToolStripMenuItem
+    '
+    Me.TestColToolStripMenuItem.Name = "TestColToolStripMenuItem"
+    Me.TestColToolStripMenuItem.Size = New System.Drawing.Size(123, 22)
+    Me.TestColToolStripMenuItem.Text = "Test_Col"
+    '
+    'TestCellToolStripMenuItem
+    '
+    Me.TestCellToolStripMenuItem.Name = "TestCellToolStripMenuItem"
+    Me.TestCellToolStripMenuItem.Size = New System.Drawing.Size(125, 22)
+    Me.TestCellToolStripMenuItem.Text = "Test_Cell"
     '
     'MainForm
     '
@@ -129,12 +190,16 @@ Partial Class MainForm
     Me.Controls.Add(Me.MenuStrip1)
     Me.MainMenuStrip = Me.MenuStrip1
     Me.Name = "MainForm"
-    Me.Text = "NPOI 存取範例"
+    Me.Text = "Excel2Oracle"
     CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).EndInit()
     Me.MenuStrip1.ResumeLayout(False)
     Me.MenuStrip1.PerformLayout()
     Me.StatusStrip1.ResumeLayout(False)
     Me.StatusStrip1.PerformLayout()
+    Me.rightClickMenuDV_All.ResumeLayout(False)
+    Me.rigthClickMenuDV_Row.ResumeLayout(False)
+    Me.rightClickMenuDV_Col.ResumeLayout(False)
+    Me.rightClickMenuDV_Cell.ResumeLayout(False)
     Me.ResumeLayout(False)
     Me.PerformLayout()
 
@@ -150,5 +215,13 @@ Partial Class MainForm
   Friend WithEvents StatusStrip1 As System.Windows.Forms.StatusStrip
   Friend WithEvents statusLblFilePath As System.Windows.Forms.ToolStripStatusLabel
   Friend WithEvents menuItemShowFilePath As System.Windows.Forms.ToolStripMenuItem
+  Friend WithEvents rightClickMenuDV_All As System.Windows.Forms.ContextMenuStrip
+  Friend WithEvents ToolStripMenuItem1 As System.Windows.Forms.ToolStripMenuItem
+  Friend WithEvents rigthClickMenuDV_Row As System.Windows.Forms.ContextMenuStrip
+  Friend WithEvents TestRowToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
+  Friend WithEvents rightClickMenuDV_Col As System.Windows.Forms.ContextMenuStrip
+  Friend WithEvents rightClickMenuDV_Cell As System.Windows.Forms.ContextMenuStrip
+  Friend WithEvents TestColToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
+  Friend WithEvents TestCellToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
 
 End Class

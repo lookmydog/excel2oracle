@@ -108,22 +108,28 @@ Public Class MainForm
     Catch ex As Exception
       MsgBox(ex.ToString, MsgBoxStyle.Critical)
     End Try
+
     Return dtSheetData
   End Function
 
   Private Sub MainForm_Load(sender As Object, e As System.EventArgs) Handles Me.Load
+
     '過濾附檔名,only xls , xlsx
     OpenFileDialog1.Filter = "Excel|*.xls|Excel2007|*.xlsx"
     '預設檔名名稱
     OpenFileDialog1.FileName = "test.xls"
+
+
   End Sub
 
   Private Sub ListBox1_SelectedIndexChanged(sender As System.Object, e As System.EventArgs) Handles ListBox1.SelectedIndexChanged
     If ListBox1.SelectedIndex < 0 Then Return
     DataGridView1.DataSource = dsExcel.Tables(ListBox1.SelectedIndex)
+
     '當選擇sheet 的時候去 auto size 此sheet
     DataGridView1.AutoResizeColumns()
     DataGridView1.AutoResizeRows()
+
   End Sub
 
   '結束程式
@@ -150,6 +156,7 @@ Public Class MainForm
     End If
   End Sub
 
+  '顯示EXCEL 檔案路徑
   Private Sub menuItemShowFilePath_Click(sender As System.Object, e As System.EventArgs) Handles menuItemShowFilePath.Click
     Dim frmShowPath As New frmShowFilePath(OpenFileDialog1.InitialDirectory & strExcelName)
     frmShowPath.Show()
@@ -158,6 +165,25 @@ Public Class MainForm
   'release source
   Protected Overrides Sub Finalize()
     dsExcel = Nothing
+    MyBase.Finalize()
+  End Sub
+
+  '選擇哪種contextMenuStrip (按右鍵出現的選單)
+  Private Sub DataGridView1_CellContextMenuStripNeeded(sender As Object, e As System.Windows.Forms.DataGridViewCellContextMenuStripNeededEventArgs) Handles DataGridView1.CellContextMenuStripNeeded
+    Try
+      Dim dgv As DataGridView = DirectCast(sender, DataGridView)
+
+      If e.ColumnIndex < 0 And e.RowIndex < 0 Then
+        e.ContextMenuStrip = Me.rightClickMenuDV_All
+      ElseIf e.RowIndex < 0 Then
+        e.ContextMenuStrip = Me.rightClickMenuDV_Col
+      ElseIf e.ColumnIndex < 0 Then
+        e.ContextMenuStrip = Me.rigthClickMenuDV_Row
+      ElseIf dgv(e.ColumnIndex, e.RowIndex).Value <> Nothing Then
+        e.ContextMenuStrip = Me.rightClickMenuDV_Cell
+      End If
+    Catch ex As Exception
+    End Try
   End Sub
 
 End Class
