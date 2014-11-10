@@ -36,12 +36,17 @@ Partial Class MainForm
     Me.statusLblFilePath = New System.Windows.Forms.ToolStripStatusLabel()
     Me.rightClickMenuDV_All = New System.Windows.Forms.ContextMenuStrip(Me.components)
     Me.ToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
+    Me.ctxMenu_All_Delete = New System.Windows.Forms.ToolStripMenuItem()
     Me.rigthClickMenuDV_Row = New System.Windows.Forms.ContextMenuStrip(Me.components)
     Me.TestRowToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
     Me.rightClickMenuDV_Col = New System.Windows.Forms.ContextMenuStrip(Me.components)
-    Me.rightClickMenuDV_Cell = New System.Windows.Forms.ContextMenuStrip(Me.components)
     Me.TestColToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+    Me.rightClickMenuDV_Cell = New System.Windows.Forms.ContextMenuStrip(Me.components)
     Me.TestCellToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+    Me.ctxMenu_All_Clear = New System.Windows.Forms.ToolStripMenuItem()
+    Me.ToolStripSeparator2 = New System.Windows.Forms.ToolStripSeparator()
+    Me.rightClickMenuListBox = New System.Windows.Forms.ContextMenuStrip(Me.components)
+    Me.ctxListBox_delete = New System.Windows.Forms.ToolStripMenuItem()
     CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).BeginInit()
     Me.MenuStrip1.SuspendLayout()
     Me.StatusStrip1.SuspendLayout()
@@ -49,6 +54,7 @@ Partial Class MainForm
     Me.rigthClickMenuDV_Row.SuspendLayout()
     Me.rightClickMenuDV_Col.SuspendLayout()
     Me.rightClickMenuDV_Cell.SuspendLayout()
+    Me.rightClickMenuListBox.SuspendLayout()
     Me.SuspendLayout()
     '
     'DataGridView1
@@ -75,6 +81,7 @@ Partial Class MainForm
     Me.ListBox1.ItemHeight = 12
     Me.ListBox1.Location = New System.Drawing.Point(12, 79)
     Me.ListBox1.Name = "ListBox1"
+    Me.ListBox1.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended
     Me.ListBox1.Size = New System.Drawing.Size(96, 328)
     Me.ListBox1.TabIndex = 3
     '
@@ -91,30 +98,30 @@ Partial Class MainForm
     '
     Me.檔案ToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.menuItemOpenFile, Me.menuItemShowFilePath, Me.ToolStripSeparator1, Me.menuItemEndProgram})
     Me.檔案ToolStripMenuItem.Name = "檔案ToolStripMenuItem"
-    Me.檔案ToolStripMenuItem.Size = New System.Drawing.Size(44, 20)
+    Me.檔案ToolStripMenuItem.Size = New System.Drawing.Size(43, 20)
     Me.檔案ToolStripMenuItem.Text = "檔案"
     '
     'menuItemOpenFile
     '
     Me.menuItemOpenFile.Name = "menuItemOpenFile"
-    Me.menuItemOpenFile.Size = New System.Drawing.Size(148, 22)
+    Me.menuItemOpenFile.Size = New System.Drawing.Size(152, 22)
     Me.menuItemOpenFile.Text = "開啟檔案"
     '
     'menuItemShowFilePath
     '
     Me.menuItemShowFilePath.Name = "menuItemShowFilePath"
-    Me.menuItemShowFilePath.Size = New System.Drawing.Size(148, 22)
+    Me.menuItemShowFilePath.Size = New System.Drawing.Size(152, 22)
     Me.menuItemShowFilePath.Text = "顯示檔案路徑"
     '
     'ToolStripSeparator1
     '
     Me.ToolStripSeparator1.Name = "ToolStripSeparator1"
-    Me.ToolStripSeparator1.Size = New System.Drawing.Size(145, 6)
+    Me.ToolStripSeparator1.Size = New System.Drawing.Size(149, 6)
     '
     'menuItemEndProgram
     '
     Me.menuItemEndProgram.Name = "menuItemEndProgram"
-    Me.menuItemEndProgram.Size = New System.Drawing.Size(148, 22)
+    Me.menuItemEndProgram.Size = New System.Drawing.Size(152, 22)
     Me.menuItemEndProgram.Text = "結束程式"
     '
     'StatusStrip1
@@ -133,51 +140,80 @@ Partial Class MainForm
     '
     'rightClickMenuDV_All
     '
-    Me.rightClickMenuDV_All.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripMenuItem1})
+    Me.rightClickMenuDV_All.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripMenuItem1, Me.ToolStripSeparator2, Me.ctxMenu_All_Delete, Me.ctxMenu_All_Clear})
     Me.rightClickMenuDV_All.Name = "rightClickMenuDV_All"
-    Me.rightClickMenuDV_All.Size = New System.Drawing.Size(119, 26)
+    Me.rightClickMenuDV_All.Size = New System.Drawing.Size(123, 76)
     '
     'ToolStripMenuItem1
     '
     Me.ToolStripMenuItem1.Name = "ToolStripMenuItem1"
-    Me.ToolStripMenuItem1.Size = New System.Drawing.Size(118, 22)
+    Me.ToolStripMenuItem1.Size = New System.Drawing.Size(122, 22)
     Me.ToolStripMenuItem1.Text = "Test_All"
+    '
+    'ctxMenu_All_Delete
+    '
+    Me.ctxMenu_All_Delete.Name = "ctxMenu_All_Delete"
+    Me.ctxMenu_All_Delete.Size = New System.Drawing.Size(122, 22)
+    Me.ctxMenu_All_Delete.Text = "全部刪除"
     '
     'rigthClickMenuDV_Row
     '
     Me.rigthClickMenuDV_Row.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.TestRowToolStripMenuItem})
     Me.rigthClickMenuDV_Row.Name = "rigthClickMenuDV_Row"
-    Me.rigthClickMenuDV_Row.Size = New System.Drawing.Size(130, 26)
+    Me.rigthClickMenuDV_Row.Size = New System.Drawing.Size(123, 26)
     '
     'TestRowToolStripMenuItem
     '
     Me.TestRowToolStripMenuItem.Name = "TestRowToolStripMenuItem"
-    Me.TestRowToolStripMenuItem.Size = New System.Drawing.Size(129, 22)
+    Me.TestRowToolStripMenuItem.Size = New System.Drawing.Size(122, 22)
     Me.TestRowToolStripMenuItem.Text = "Test_Row"
     '
     'rightClickMenuDV_Col
     '
     Me.rightClickMenuDV_Col.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.TestColToolStripMenuItem})
     Me.rightClickMenuDV_Col.Name = "rightClickMenuDV_Col"
-    Me.rightClickMenuDV_Col.Size = New System.Drawing.Size(124, 26)
+    Me.rightClickMenuDV_Col.Size = New System.Drawing.Size(117, 26)
+    '
+    'TestColToolStripMenuItem
+    '
+    Me.TestColToolStripMenuItem.Name = "TestColToolStripMenuItem"
+    Me.TestColToolStripMenuItem.Size = New System.Drawing.Size(116, 22)
+    Me.TestColToolStripMenuItem.Text = "Test_Col"
     '
     'rightClickMenuDV_Cell
     '
     Me.rightClickMenuDV_Cell.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.TestCellToolStripMenuItem})
     Me.rightClickMenuDV_Cell.Name = "rightClickMenuDV_Cell"
-    Me.rightClickMenuDV_Cell.Size = New System.Drawing.Size(126, 26)
-    '
-    'TestColToolStripMenuItem
-    '
-    Me.TestColToolStripMenuItem.Name = "TestColToolStripMenuItem"
-    Me.TestColToolStripMenuItem.Size = New System.Drawing.Size(123, 22)
-    Me.TestColToolStripMenuItem.Text = "Test_Col"
+    Me.rightClickMenuDV_Cell.Size = New System.Drawing.Size(119, 26)
     '
     'TestCellToolStripMenuItem
     '
     Me.TestCellToolStripMenuItem.Name = "TestCellToolStripMenuItem"
-    Me.TestCellToolStripMenuItem.Size = New System.Drawing.Size(125, 22)
+    Me.TestCellToolStripMenuItem.Size = New System.Drawing.Size(118, 22)
     Me.TestCellToolStripMenuItem.Text = "Test_Cell"
+    '
+    'ctxMenu_All_Clear
+    '
+    Me.ctxMenu_All_Clear.Name = "ctxMenu_All_Clear"
+    Me.ctxMenu_All_Clear.Size = New System.Drawing.Size(122, 22)
+    Me.ctxMenu_All_Clear.Text = "全部清空"
+    '
+    'ToolStripSeparator2
+    '
+    Me.ToolStripSeparator2.Name = "ToolStripSeparator2"
+    Me.ToolStripSeparator2.Size = New System.Drawing.Size(119, 6)
+    '
+    'rightClickMenuListBox
+    '
+    Me.rightClickMenuListBox.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ctxListBox_delete})
+    Me.rightClickMenuListBox.Name = "rightClickMenuListBox"
+    Me.rightClickMenuListBox.Size = New System.Drawing.Size(153, 48)
+    '
+    'ctxListBox_delete
+    '
+    Me.ctxListBox_delete.Name = "ctxListBox_delete"
+    Me.ctxListBox_delete.Size = New System.Drawing.Size(152, 22)
+    Me.ctxListBox_delete.Text = "刪除"
     '
     'MainForm
     '
@@ -200,6 +236,7 @@ Partial Class MainForm
     Me.rigthClickMenuDV_Row.ResumeLayout(False)
     Me.rightClickMenuDV_Col.ResumeLayout(False)
     Me.rightClickMenuDV_Cell.ResumeLayout(False)
+    Me.rightClickMenuListBox.ResumeLayout(False)
     Me.ResumeLayout(False)
     Me.PerformLayout()
 
@@ -223,5 +260,10 @@ Partial Class MainForm
   Friend WithEvents rightClickMenuDV_Cell As System.Windows.Forms.ContextMenuStrip
   Friend WithEvents TestColToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
   Friend WithEvents TestCellToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
+  Friend WithEvents ctxMenu_All_Delete As System.Windows.Forms.ToolStripMenuItem
+  Friend WithEvents ToolStripSeparator2 As System.Windows.Forms.ToolStripSeparator
+  Friend WithEvents ctxMenu_All_Clear As System.Windows.Forms.ToolStripMenuItem
+  Friend WithEvents rightClickMenuListBox As System.Windows.Forms.ContextMenuStrip
+  Friend WithEvents ctxListBox_delete As System.Windows.Forms.ToolStripMenuItem
 
 End Class

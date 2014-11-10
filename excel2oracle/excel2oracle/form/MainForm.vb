@@ -34,7 +34,7 @@ Public Class MainForm
       fsFile.Close()
       fsFile.Dispose()
     Catch ex As Exception
-      MsgBox(ex.ToString)
+      MsgBox("LoadExcelData error." & vbNewLine & ex.ToString)
     End Try
 
   End Sub
@@ -115,11 +115,23 @@ Public Class MainForm
   Private Sub MainForm_Load(sender As Object, e As System.EventArgs) Handles Me.Load
 
     '過濾附檔名,only xls , xlsx
-    OpenFileDialog1.Filter = "Excel|*.xls|Excel2007|*.xlsx"
+    OpenFileDialog1.Filter = "Excel|*.xls|Excel 2007|*.xlsx"
     '預設檔名名稱
     OpenFileDialog1.FileName = "test.xls"
 
+    '把DataGridView 的新增row 關閉
+    DataGridView1.AllowUserToAddRows = False
 
+    '指定ContextMenuStrip 給 listbox1
+    ListBox1.ContextMenuStrip = rightClickMenuListBox
+
+  End Sub
+
+  Private Sub ListBox1_KeyDown(sender As Object, e As System.Windows.Forms.KeyEventArgs) Handles ListBox1.KeyDown
+    Select Case e.KeyCode
+      Case Keys.Delete
+        DeleteListItems(Me.ListBox1, dsExcel)
+    End Select
   End Sub
 
   Private Sub ListBox1_SelectedIndexChanged(sender As System.Object, e As System.EventArgs) Handles ListBox1.SelectedIndexChanged
@@ -184,6 +196,31 @@ Public Class MainForm
       End If
     Catch ex As Exception
     End Try
+  End Sub
+
+  '將DataGridView table 整個刪掉(初始化)
+  '2014/11/10 感覺沒什麼意義,未來考慮刪除功能
+  Private Sub ctxMenu_All_Delete_Click(sender As System.Object, e As System.EventArgs) Handles ctxMenu_All_Delete.Click
+    Try
+      DataGridView1.DataSource = Nothing
+      dsExcel.Tables(ListBox1.SelectedIndex).BeginInit()
+
+      '需求
+      '欄位的位數還是固定，不是很符合要求，想要改變成能修改（新增或是刪除）
+    Catch ex As Exception
+      MsgBox("ctxMenu_All_Delete_Click Error.")
+    End Try
+  End Sub
+
+  '清空 DataGridView 內容
+  Private Sub ctxMenu_All_Clear_Click(sender As System.Object, e As System.EventArgs) Handles ctxMenu_All_Clear.Click
+    DataGridViewAllClear(Me.DataGridView1)
+
+  End Sub
+
+  '刪除listbox items
+  Private Sub ctxListBox_delete_Click(sender As System.Object, e As System.EventArgs) Handles ctxListBox_delete.Click
+    DeleteListItems(Me.ListBox1, dsExcel)
   End Sub
 
 End Class
