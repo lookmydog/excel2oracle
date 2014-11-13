@@ -1,0 +1,5 @@
+## all exe file 
+*.exe
+
+## all tmp file 
+*.tmp
