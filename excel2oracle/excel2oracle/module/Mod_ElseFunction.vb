@@ -139,32 +139,41 @@ Module Mod_ElseFunction
 
         '判別cell 是什麼格式
         For Each tCell As ICell In tRow.Cells
-          If tCell.CellType = CellType.Formula Then
 
-            Dim iFormula As IFormulaEvaluator
-            Dim obj As Object
+          Select Case tCell.CellType
+            Case CellType.Formula
 
-            Try
-              'interface evaluate formula in cell
-              iFormula = WorkbookFactory.CreateFormulaEvaluator(wbXLS)
-              obj = iFormula.Evaluate(tCell).CellType
+              Dim iFormula As IFormulaEvaluator
+              Dim obj As Object
 
-              If obj = CellType.Numeric Then
-                tmpAddRow(Convert10to26(tCell.ColumnIndex + 1)) = tCell.NumericCellValue
-              Else
-                tmpAddRow(Convert10to26(tCell.ColumnIndex + 1)) = tCell.ToString
-              End If
-            Catch
-              'the special formula : "W" & formula => string value
-              tmpAddRow(Convert10to26(tCell.ColumnIndex + 1)) = tCell.StringCellValue
-            End Try
+              Try
+                'interface evaluate formula in cell
+                iFormula = WorkbookFactory.CreateFormulaEvaluator(wbXLS)
+                obj = iFormula.Evaluate(tCell).CellType
 
-          Else
-            '不是公式直接輸出字串
-            'If tCell.ToString <> "" Then
-            tmpAddRow(Convert10to26(tCell.ColumnIndex + 1)) = tCell.ToString
-            ' End If
-          End If
+                If obj = CellType.Numeric Then
+                  tmpAddRow(Convert10to26(tCell.ColumnIndex + 1)) = tCell.NumericCellValue
+                Else
+                  tmpAddRow(Convert10to26(tCell.ColumnIndex + 1)) = tCell.ToString
+                End If
+              Catch
+                'the special formula : "W" & formula => string value
+                tmpAddRow(Convert10to26(tCell.ColumnIndex + 1)) = tCell.StringCellValue
+              End Try
+            Case CellType.Numeric
+              tmpAddRow(Convert10to26(tCell.ColumnIndex + 1)) = tCell.NumericCellValue
+            Case CellType.String
+              '不是公式直接輸出字串
+              tmpAddRow(Convert10to26(tCell.ColumnIndex + 1)) = tCell.ToString
+            Case CellType.Error
+              tmpAddRow(Convert10to26(tCell.ColumnIndex + 1)) = "[Error]"
+            Case CellType.Blank
+              tmpAddRow(Convert10to26(tCell.ColumnIndex + 1)) = "[Blank]"
+            Case CellType.Unknown
+              tmpAddRow(Convert10to26(tCell.ColumnIndex + 1)) = "[Unknown]"
+            Case Else
+              tmpAddRow(Convert10to26(tCell.ColumnIndex + 1)) = "[Else]"
+          End Select
 
         Next
         'datatable 新增 row

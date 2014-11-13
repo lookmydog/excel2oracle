@@ -63,6 +63,7 @@ Public Class MainForm
       '讀取 excel
       LoadExcelData(strExcelName, OpenFileDialog1.FilterIndex, Me.ListBox1, dsExcel)
       DataGridView1.DataSource = Nothing
+    ElseIf OpenFileDialog1.ShowDialog = Windows.Forms.DialogResult.Cancel Then
     Else
       MsgBox(MessageFormat("", "menuItemOpenFile_Click"))
       Return
@@ -131,4 +132,8 @@ Public Class MainForm
     Next
   End Sub
 
+  'show position 
+  Private Sub DataGridView1_CellEnter(sender As Object, e As System.Windows.Forms.DataGridViewCellEventArgs) Handles DataGridView1.CellEnter
+    Me.lblCellPos.Text = String.Format("({0} , {1})", e.RowIndex + 1, e.ColumnIndex + 1)
+  End Sub
 End Class
