@@ -36,6 +36,9 @@ Public Class MainForm
   End Sub
 
   Private Sub ListBox1_SelectedIndexChanged(sender As System.Object, e As System.EventArgs) Handles ListBox1.SelectedIndexChanged
+
+    If Not SetMode(Me.DataGridView1, DV_Mode.CellSelect) Then Exit Sub
+
     If ListBox1.SelectedIndex < 0 Then Return
     DataGridView1.DataSource = dsExcel.Tables(ListBox1.SelectedIndex)
 
@@ -43,6 +46,8 @@ Public Class MainForm
     DataGridView1.AutoResizeColumns()
     ' DataGridView1.AutoResizeRows()
 
+    '將自動排序關閉
+    ShutDownAutoSort(Me.DataGridView1)
   End Sub
 
   '結束程式
@@ -124,6 +129,7 @@ Public Class MainForm
     DeleteListItems(Me.ListBox1, dsExcel)
   End Sub
 
+  '刪除所選整列
   Private Sub ctxMenu_Row_DeleteChoose_Click(sender As System.Object, e As System.EventArgs) Handles ctxMenu_Row_DeleteChoose.Click
     For Each row As DataGridViewRow In DataGridView1.SelectedRows
       If Not row.IsNewRow Then
@@ -136,4 +142,46 @@ Public Class MainForm
   Private Sub DataGridView1_CellEnter(sender As Object, e As System.Windows.Forms.DataGridViewCellEventArgs) Handles DataGridView1.CellEnter
     Me.lblCellPos.Text = String.Format("({0} , {1})", e.RowIndex + 1, e.ColumnIndex + 1)
   End Sub
+
+  Private Sub ctxMenu_Col_DeleteChoose_Click(sender As System.Object, e As System.EventArgs) Handles ctxMenu_Col_DeleteChoose.Click
+    For Each col As DataGridViewColumn In DataGridView1.SelectedColumns
+      DataGridView1.Columns.Remove(col)
+    Next
+  End Sub
+
+  Private Sub menuItem_CellSelect_Click(sender As System.Object, e As System.EventArgs) Handles menuItem_CellSelect.Click
+    If Not SetMode(Me.DataGridView1, DV_Mode.CellSelect) Then Exit Sub
+  End Sub
+
+  Private Sub menuItem_RowHeaderSelect_Click(sender As System.Object, e As System.EventArgs) Handles menuItem_RowHeaderSelect.Click
+    If Not SetMode(Me.DataGridView1, DV_Mode.RowHeaderSelect) Then Exit Sub
+  End Sub
+
+  Private Sub menuItem_ColumnHeaderSelect_Click(sender As System.Object, e As System.EventArgs) Handles menuItem_ColumnHeaderSelect.Click
+    If Not SetMode(Me.DataGridView1, DV_Mode.ColumnHeaderSelect) Then Exit Sub
+  End Sub
+
+  Private Sub menuItem_deleteSpare_Click(sender As System.Object, e As System.EventArgs) Handles menuItem_deleteSpare.Click
+    Dim delList As New List(Of Integer)
+    Try
+      '先判斷是否有資料
+      If Not Me.DataGridView1 Is Nothing AndAlso (Me.DataGridView1.Columns.Count > 5 And Me.DataGridView1.RowCount > 0) Then
+        '開始尋找Spare (照理來說都是在E欄)
+        For Each row As DataGridViewRow In Me.DataGridView1.Rows
+          If String.Format("{0}", (row.Cells(4).Value)).ToLower = "spare" Then
+            delList.Add(row.Index)
+          End If
+        Next
+      End If
+      '開始刪除
+      For i As Integer = delList.Count - 1 To 0 Step -1
+        Me.DataGridView1.Rows.RemoveAt(delList.Item(i))
+      Next
+
+    Catch ex As Exception
+      MsgBox(MessageFormat(ex.ToString, "MenuItem Delete Spare."))
+    End Try
+
+  End Sub
+
 End Class

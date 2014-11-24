@@ -103,6 +103,8 @@
     <Import Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="class\ClassContentA.vb" />
+    <Compile Include="class\ClassExcelContent.vb" />
     <Compile Include="form\frmShowFilePath.Designer.vb">
       <DependentUpon>frmShowFilePath.vb</DependentUpon>
     </Compile>
@@ -116,6 +118,7 @@
       <DependentUpon>MainForm.vb</DependentUpon>
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="module\Mod_Declaration.vb" />
     <Compile Include="module\Mod_ElseFunction.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
@@ -210,9 +213,7 @@
       <Install>true</Install>
     </BootstrapperPackage>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="class\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

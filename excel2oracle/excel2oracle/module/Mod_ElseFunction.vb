@@ -26,6 +26,7 @@ Module Mod_ElseFunction
     Return strReturn
   End Function
 
+  '當item 刪除時更新
   Public Sub UpdateDataSet(ByVal index As Integer, ByRef dsExcel As DataSet)
 
     Try
@@ -143,28 +144,30 @@ Module Mod_ElseFunction
           Select Case tCell.CellType
             Case CellType.Formula
 
-              Dim iFormula As IFormulaEvaluator
-              Dim obj As Object
+              'Dim iFormula As IFormulaEvaluator
+              'Dim obj As Object
 
               Try
                 'interface evaluate formula in cell
-                iFormula = WorkbookFactory.CreateFormulaEvaluator(wbXLS)
-                obj = iFormula.Evaluate(tCell).CellType
+                'iFormula = WorkbookFactory.CreateFormulaEvaluator(wbXLS)
+                'obj = iFormula.Evaluate(tCell).CellType
 
-                If obj = CellType.Numeric Then
-                  tmpAddRow(Convert10to26(tCell.ColumnIndex + 1)) = tCell.NumericCellValue
-                Else
-                  tmpAddRow(Convert10to26(tCell.ColumnIndex + 1)) = tCell.ToString
-                End If
+                'If obj = CellType.Numeric Then
+                '  tmpAddRow(Convert10to26(tCell.ColumnIndex + 1)) = StringFormat(tCell.NumericCellValue)
+                'Else
+                '  tmpAddRow(Convert10to26(tCell.ColumnIndex + 1)) = StringFormat(tCell)
+                'End If
+
+                tmpAddRow(Convert10to26(tCell.ColumnIndex + 1)) = StringFormat(tCell.RichStringCellValue)
               Catch
                 'the special formula : "W" & formula => string value
-                tmpAddRow(Convert10to26(tCell.ColumnIndex + 1)) = tCell.StringCellValue
+                tmpAddRow(Convert10to26(tCell.ColumnIndex + 1)) = StringFormat(tCell.StringCellValue)
               End Try
             Case CellType.Numeric
-              tmpAddRow(Convert10to26(tCell.ColumnIndex + 1)) = tCell.NumericCellValue
+              tmpAddRow(Convert10to26(tCell.ColumnIndex + 1)) = StringFormat(tCell.NumericCellValue)
             Case CellType.String
               '不是公式直接輸出字串
-              tmpAddRow(Convert10to26(tCell.ColumnIndex + 1)) = tCell.ToString
+              tmpAddRow(Convert10to26(tCell.ColumnIndex + 1)) = StringFormat(tCell)
             Case CellType.Error
               tmpAddRow(Convert10to26(tCell.ColumnIndex + 1)) = "[Error]"
             Case CellType.Blank
@@ -192,4 +195,26 @@ Module Mod_ElseFunction
     Return strResult
   End Function
 
+  Public Sub ShutDownAutoSort(ByRef DV As DataGridView)
+    For i As Integer = 0 To DV.Columns.Count - 1
+      DV.Columns(i).SortMode = DataGridViewColumnSortMode.NotSortable
+    Next i
+  End Sub
+
+  Public Function StringFormat(ByVal val As Object) As String
+    Return String.Format("{0}", val)
+  End Function
+
+  Public Function SetMode(ByRef DV As DataGridView, ByVal sel As DV_Mode) As Boolean
+
+    Try
+      DV.SelectionMode = sel
+    Catch ex As Exception
+      MsgBox(MessageFormat(ex.ToString, "SetMode Error."))
+      Return False
+    End Try
+
+    Return True
+
+  End Function
 End Module

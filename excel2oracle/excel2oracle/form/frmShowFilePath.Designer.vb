@@ -41,7 +41,7 @@ Partial Class frmShowFilePath
     Me.Controls.Add(Me.txtFilePath)
     Me.MaximizeBox = False
     Me.Name = "frmShowFilePath"
-    Me.Text = "FilePath"
+    Me.Text = "檔案路徑"
     Me.ResumeLayout(False)
     Me.PerformLayout()
 
